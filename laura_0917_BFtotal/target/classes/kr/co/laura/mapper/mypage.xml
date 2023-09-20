@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mypage">
+
+	<!-- 0901_박형지 펀딩참여 리스트 -->
+	<resultMap type="fvo" id="fundingResultMap">
+		<id column="funnum" property="funnum" />
+		<result column="fupmemnum" property="fupmemnum" />
+		<result column="funtitle" property="funtitle" />
+		<result column="funwriter" property="funwriter" />
+		<result column="content" property="content" />
+		<result column="funpreview" property="funpreview" />
+		<result column="targetprice" property="targetprice" />
+		<result column="cost" property="cost" />
+		<result column="postimgn" property="postimgn" />
+		<result column="sdate" property="sdate" />
+		<result column="fdate" property="fdate" />
+		<result column="funvideo" property="funvideo" />
+		<result column="actpic" property="actpic" />
+		<result column="funpurpose" property="funpurpose" />
+		<result column="funbudget" property="funbudget" />
+		<result column="fupdate" property="fupdate" />
+		<collection property="funparti" javaType="java.util.List" ofType="fpvo">
+			<id column="fmem_num" property="fmem_num" />
+			<id column="funnum_num" property="funnum_num" />
+			<result column="funmoney" property="funmoney" />
+			<result column="funstatus" property="funstatus" />
+			<result column="joindate" property="joindate" />
+		</collection>
+	</resultMap>
+
+	<select id="fplist" parameterType="int" resultMap="fundingResultMap">
+		SELECT f.FUNTITLE, f.FUNWRITER, fp.FUNMONEY,
+		TO_CHAR(fp.JOINDATE, 'yyyy-mm-dd') AS JOINDATE
+		FROM FBOARD f, FUNDING_PARTI fp WHERE
+		f.FUNNUM=fp.FUNNUM_NUM AND
+		fp.FMEM_NUM=#{fmem_num}
+		ORDER BY fp.JOINDATE DESC
+	</select>
+</mapper>

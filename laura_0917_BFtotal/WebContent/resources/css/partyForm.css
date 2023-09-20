@@ -1,0 +1,4 @@
+@charset "EUC-KR";
+
+.submitBtn .button {background-color: #00c4c4;padding: 10px 30px;border: none;color: #fff;cursor: pointer;}
+.col-12 .submitBtn {text-align:end;margin-bottom:30px}

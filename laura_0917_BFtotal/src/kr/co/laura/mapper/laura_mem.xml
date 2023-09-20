@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- member.xml -->
+<mapper namespace="mem">
+
+	<insert id="join" parameterType="memvo">
+		<!-- NUM,EMAIL,PWD,NAME,NICKNAME,TEL,MEMGENDER,BIRTHDAY,PROFILEPIC,MDATE,GRADE,ARSTATUS -->
+		INSERT INTO
+		MEM(NUM,EMAIL,PWD,NAME,NICKNAME,TEL,MEMGENDER,BIRTHDAY,PROFILEPIC,MDATE,mempoint)
+		VALUES
+		(MEM_SEQ.NEXTVAL,#{email},#{pwd},#{name},#{nickname},#{tel},#{memgender},to_date(#{birthday},'YYYY/MM/DD'),#{profilepic},SYSDATE,#{mempoint})
+	</insert>
+
+	<select id="emailcheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) AS CNT FROM MEM WHERE EMAIL =#{email}
+	</select>
+
+	<select id="nickcheck" parameterType="String" resultType="int">
+		SELECT
+		COUNT(*) AS CNT FROM MEM WHERE NICKNAME =#{nickname}
+	</select>
+
+	<select id="telcheck" parameterType="String" resultType="int">
+		SELECT
+		COUNT(*) AS CNT FROM MEM WHERE TEL =#{tel}
+	</select>
+
+	<select id="loginchk" parameterType="memvo" resultType="memvo">
+		SELECT
+		name, EMAIL, pwd, num, NICKNAME, arstatus FROM MEM WHERE EMAIL
+		=#{email}
+		AND PWD=#{pwd}
+	</select>
+
+	<select id="mypage" parameterType="String" resultType="memvo">
+		SELECT
+		num, email, pwd, name, nickname, tel, memgender,
+		TO_CHAR(birthday,'YYYY-MM-DD') AS birthday,
+		profilepic, TO_CHAR(mdate,'YYYY-MM-DD') AS mdate, grade,
+		ARSTATUS, ADDR, BANKACCOUNT, ARPROFILEPIC, ARPROFILE,
+		TO_CHAR(ARDATE,'YYYY-MM-DD') AS ARDATE, mempoint from MEM where EMAIL = #{email}
+	</select>
+
+	<!-- 회원정보 수정/삭제 sql문은 아직 수정중 -->
+	<update id="myinfoedit_back" parameterType="memvo">
+		update MEM set
+		nickname=#{nickname}, tel=#{tel}, memgender=#{memgender} where
+		pwd=#{pwd} and num=#{num}
+	</update>
+
+	<!-- 0829_박형지: 회원정보 수정시 닉네임만 변경하게 되어있어서 mapper수정함 -->
+	<update id="myinfoedit" parameterType="memvo">
+		update MEM set
+		nickname=#{nickname} where num=#{num}
+	</update>
+
+	<select id="pwdchk" parameterType="memvo" resultType="int">
+		SELECT
+		COUNT(pwd) FROM mem WHERE num=#{num} and pwd=#{pwd}
+	</select>
+
+	<!-- 0904 조건 수정 -->
+	<update id="pwdedit" parameterType="memvo">
+		update MEM set
+		pwd=#{pwd}
+		where email=#{email}
+	</update>
+
+	<select id="list" resultType="memvo" parameterType="map">
+		SELECT NUM,
+		EMAIL, NAME, nickname, TEL, MDATE FROM MEM FROM (
+		SELECT ROWNUM AS
+		R_NUM,
+		A.* FROM (
+		SELECT * FROM MEM ORDER BY 1 DESC) A)
+		WHERE R_NUM
+		BETWEEN
+		#{begin} AND #{end}
+	</select>
+
+
+
+	<!-- 페이징처리 : 회원 리스트 -->
+	<select id="list1" resultType="memvo" parameterType="map">
+
+		select num,
+		email, name,NNAME, tel from (
+		SELECT ROWNUM r_num, a.*
+		FROM(
+		SELECT *
+		FROM MEM ORDER BY 1 desc
+		) a
+		)WHERE r_num BETWEEN
+		#{begin} AND
+		#{end}
+
+	</select>
+	<!-- 페이징처리 -->
+
+
+
+	<select id="totalCount" resultType="int">
+		select count(*) AS cnt from
+		MEM
+	</select>
+
+	<!-- login logging mapper -->
+	<insert id="logger_in" parameterType="logvo">
+		INSERT INTO MEM_LOG
+		VALUES(MEM_LOG_SEQ.NEXTVAL, #{laura_num}, #{reip},
+		#{uagent},
+		#{status}, SYSDATE)
+	</insert>
+
+	<!-- 0819_박형지 : 예술인 인증 폼 작성시 프로필 업데이트 -->
+	<update id="upartist" parameterType="memvo">
+		<!-- ARSTATUS,ADDR,BANKACCOUNT,ARPROFILEPIC,ARPROFILE,ARDATE -->
+		UPDATE MEM SET ARSTATUS='인증', ADDR=#{addr},
+		BANKACCOUNT=#{bankaccount},
+		ARPROFILEPIC=#{arprofilepic},
+		ARPROFILE=#{arprofile}, ARDATE=SYSDATE WHERE
+		NUM=#{num}
+	</update>
+
+	<!-- 회원탈퇴 08.26(토)-이성근 -->
+	<delete id="memDelete" parameterType="memvo">
+		DELETE FROM MEM WHERE
+		EMAIL=#{email} AND PWD=#{pwd}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+

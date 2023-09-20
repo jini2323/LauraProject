@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	<typeAliases>
+		<!-- 회원 -->
+		<typeAlias type="kr.co.laura.mvc.vo.MemVO" alias="memvo" />
+		<typeAlias type="kr.co.laura.mvc.vo.Mem_logVO" alias="logvo" />
+		<!-- 펀딩 -->
+		<typeAlias type="kr.co.laura.mvc.vo.FBoardVO" alias="fvo" />
+
+		<!-- 뉴스 -->
+		<typeAlias type="kr.co.laura.mvc.vo.NewsVO" alias="nvo" />
+
+		<!-- 이벤트 -->
+		<typeAlias type="kr.co.laura.mvc.vo.EVboardVO" alias="evvo" />
+		<typeAlias type="kr.co.laura.mvc.vo.EVPboardVO"
+			alias="evpvo" />
+
+		<!-- 펀딩참여 -->
+		<typeAlias type="kr.co.laura.mvc.vo.FundingPartiVO" alias="fpvo" />
+
+		<!-- 굿즈교환 -->
+		<typeAlias type="kr.co.laura.mvc.vo.TradeVO" alias="trvo" />
+		<typeAlias type="kr.co.laura.mvc.vo.TrCommVO" alias="trcvo" />
+		
+		<!-- 파티모집 -->
+		<typeAlias type="kr.co.laura.mvc.vo.PartyVO" alias="pvo" />
+		<typeAlias type="kr.co.laura.mvc.vo.PartyCommVO"
+			alias="pcvo" />
+			
+		<!-- 포인트 -->
+		<typeAlias type="kr.co.laura.mvc.vo.PointVO" alias="point"/>
+		
+		<!-- 방문자수 카운트 -->
+		<typeAlias type="kr.co.laura.mvc.vo.VisitCountVO" alias="visitC"/>
+		
+		
+
+	</typeAliases>
+
+</configuration> 

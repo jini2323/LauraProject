@@ -1,0 +1,207 @@
+@charset "EUC-KR";
+
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Pen+Script&display=swap');
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*모달창 스크롤 막기 css*/
+.RegistrationProject_container {overflow: hidden;}
+
+/*슬라이드 쇼 css*/
+.swiper {
+      width: 90%;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    .swiper-slide {
+      background-position: center;
+      background-size: cover;
+      width: 300px;
+      height: 300px;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height:100%;
+      border-radius: 20px;
+    }
+/* 모달 창 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    /* z-index: 1; */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    
+}
+.modal .modal-content h2{font-family: 'NanumSquareNeo-Variable';font-weight: bold;}
+.modal .modal-content p{font-family: 'NanumSquareNeo-Variable';}
+.modal .modal-content #artistForm .uploadImg .directorImgUpload #imgx {width: 70px;height: 70px; border-radius: 50%;}
+.modal .modal-content #artistForm .uploadImg .directorImgUpload{text-align: center;}
+.modal .modal-content #artistForm .uploadImg .group-img {text-align: end;}
+.modal .modal-content #artistForm .uploadImg .group-img input[type="file"]{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+}
+.modal .modal-content #artistForm .uploadImg span:first-child{font-weight: bold;}
+.modal .modal-content #artistForm .uploadImg span:nth-child(2){color: red;}
+.modal .modal-content #artistForm .uploadImg .group-img .filebox {text-align: center;margin-top:10px;}
+.modal .modal-content #artistForm .uploadImg .group-img .filebox label {border:1px solid #eee;padding: 3px 5px;border-radius: 7px;font-size:12px;cursor: pointer;}
+.modal .modal-content #artistForm .director_produce div{display: grid;}
+.modal .modal-content #artistForm .director_produce span:first-child {font-weight: bold;}
+.modal .modal-content #artistForm .director_produce span:nth-child(2){color: red;}
+.modal .modal-content #artistForm .director_produce .director_textarea textarea{padding:5px;height: 100px;border: 1px solid #939393;border-radius: 7px;margin: 10px 0 20px 0;}
+.modal .modal-content #artistForm .director_address span:first-child {font-weight: bold;}
+.modal .modal-content #artistForm .director_address span:nth-child(2) {color: red;}
+.modal .modal-content #artistForm .director_address input {padding:5px;margin:10px 0 20px 0;width: 310px;border: 1px solid #939393;height: 33px;border-radius: 4px;}
+.modal .modal-content #artistForm .director_account .bankSelect-menu #bankSelectBox {margin:10px 0;width: 310px;border: 1px solid #939393;height: 33px;border-radius: 4px;}
+.modal .modal-content #artistForm .director_account span:first-child {font-weight: bold;}
+.modal .modal-content #artistForm .director_account span:nth-child(2) {color: red;}
+.modal .modal-content #artistForm .director_account input {padding:5px;margin-bottom:20px;width: 310px;border: 1px solid #939393;height: 33px;border-radius: 4px;}
+.modal .modal-content #artistForm .formBtn {display: flex;justify-content: center;gap: 50px;}
+.modal .modal-content #artistForm .formBtn button {border:none;padding: 10px 25px;background-color: #00c4c4;cursor: pointer;}
+.modal .modal-content #artistForm .formBtn button span {color: #fff;}
+/*모달창 close*/
+.close {
+    color: #aaa;
+    /* float: right; */
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: right;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.artist_certificationImg span:first-child{font-weight: bold;}
+.artist_certificationImg span:nth-child(2){color: red;}
+.artist_certificationImg .artist_document {font-size:11px;margin:10px 0 40px 0;display: grid;justify-items: center;align-content: center;background-color: #f0f0f0;height: 150px;width: 310px;border: 2px dashed gray;}
+.artist_certificationImg .artist_document .document-certif .material-symbols-outlined {color: #737373;}
+.artist_certificationImg .artist_document button {border:none;}
+
+
+.RegistrationProject_container .KeyVisual_container .KeyVisual_inner {padding: 120px 16px; max-width: 1096px; margin: 0 auto; text-align:center;}
+.RegistrationProject_container .KeyVisual_container .KeyVisual_inner .KeyVisual_inner_text1 {font-size:20px;}
+.RegistrationProject_container .KeyVisual_container .KeyVisual_inner .KeyVisual_inner_text1 span:first-child {font-weight: 500;}
+.RegistrationProject_container .KeyVisual_container .KeyVisual_inner .KeyVisual_inner_text1 span:nth-child(2) {color:#00c4c4;font-family: 'Nanum Pen Script', cursive;font-size: 40px;font-weight: lighter;}
+.RegistrationProject_container .KeyVisual_container .KeyVisual_inner .KeyVisual_inner_text1 span:nth-child(3){font-weight: 500;}   
+.RegistrationProject_container .KeyVisual_container .KeyVisual_inner .KeyVisual_textBox .img_uppper1 {position: relative;top: -20px;}
+.RegistrationProject_container .KeyVisual_container .KeyVisual_inner .KeyVisual_textBox .img_uppper2 {position: relative;top: -20px;transform: scaleY(-1) scaleX(-1);}
+.RegistrationProject_container .KeyVisual_container .KeyVisual_inner .KeyVisual_textBox .KeyVisual_makerIntroduce {font-family: 'NanumSquareNeo-Variable';color:black;line-height: 35px;margin-top: 5px;font-size: 28px;font-weight: 700;max-width: 750px;margin-bottom: 0px;display: inline-block;}
+.RegistrationProject_container .KeyVisual_container .KeyVisual_inner .KeyVisual_inner_info {line-height: 38px;font-size: 28px; color:black; display: flex;align-items: baseline;justify-content: center;gap:15px;font-family: 'NanumSquareNeo-Variable';}
+.RegistrationProject_container .KeyVisual_container .KeyVisual_inner .KeyVisual_inner_info .KeyVisual_inner_info_text {display:block;}
+.RegistrationProject_container .KeyVisual_container .KeyVisual_inner .KeyVisual_inner_info .KeyVisual_inner_info_text span:first-child {line-height: 62px;font-size: 48px;font-weight: 400;transform: translateY(5px);margin: 0 8px;vertical-align: sub;color: #00c4c4;font-family: 'Nanum Pen Script', cursive;}
+.RegistrationProject_container .KeyVisual_container .KeyVisual_inner .gotoMakingFunding_Btn {border:1px solid #00c4c4;background-color: #00c4c4;color: #fff; width: 400px; height: 60px}
+.RegistrationProject_container div .ServiceInfo_inner {padding: 80px 16px; padding: 80px 16px; text-align:center;}
+.RegistrationProject_container div .ServiceInfo_inner h3 {line-height: 44px;font-size: 32px;font-weight: 700;font-family: 'NanumSquareNeo-Variable';}
+.RegistrationProject_container div .ServiceInfo_inner p {line-height: 30px;font-size: 20px;font-weight: 400;margin-top: 16px;font-family: 'NanumSquareNeo-Variable';}
+.RegistrationProject_container div .ServiceInfo_inner .ServiceInfo_list {display:flex; justify-content:center; justify-content: space-between; margin: 24px auto 0; max-width: 1280px;}
+.RegistrationProject_container div .ServiceInfo_inner .ServiceInfo_list .ServiceInfo_listItem {display: block;padding: 24px 16px;width: 243px;text-align: center;background-color: #f9fafb;border-radius:8px;}
+.RegistrationProject_container div .ServiceInfo_inner .ServiceInfo_list .ServiceInfo_listItem dl img {margin-bottom:5px;}
+.RegistrationProject_container div .ServiceInfo_inner .ServiceInfo_list .ServiceInfo_listItem .listItem_title {color: #00c4c4;}
+.RegistrationProject_container .ServiceProvide_container {background-color: #eff3fd;}
+.RegistrationProject_container .ServiceProvide_container .ServiceProvide_inner {padding: 80px 16px; text-align:center;}
+.RegistrationProject_container .ServiceProvide_container .ServiceProvide_inner h3 {line-height: 44px;font-size: 32px; font-weight: 700;font-family: 'NanumSquareNeo-Variable';}
+.RegistrationProject_container .ServiceProvide_container .ServiceProvide_inner p {line-height: 30px;font-size: 20px;font-weight: 400;margin-top: 16px;font-family: 'NanumSquareNeo-Variable';}
+.RegistrationProject_container .ServiceProvide_container .ServiceProvide_inner .ServiceInfo_list /*ul*/{display:flex; justify-content:center; justify-content: space-between; margin: 40px auto 0; max-width: 1400px;}
+.RegistrationProject_container .ServiceProvide_container .ServiceProvide_inner .ServiceInfo_list .ServiceInfo_listItem {display: block;padding: 24px 16px;width: 320px;text-align: center;background-color: #f9fafb;border-radius:8px;}
+.RegistrationProject_container .ServiceProvide_container .ServiceProvide_inner .ServiceInfo_list .ServiceInfo_listItem dl dt {color: #00c4c4;margin-bottom: 10px;}
+.RegistrationProject_container .ServiceProvide_container .ServiceProvide_inner .ServiceInfo_list .ServiceInfo_listItem dl img {width: 80%;margin-top: 10px;}
+/* .RegistrationProject_container .ServiceProvide_container .ServiceProvide_inner .ServiceInfo_list .ServiceInfo_listItem dt .listItem_text1 {text-align: left;padding: 0 55px;}
+.RegistrationProject_container .ServiceProvide_container .ServiceProvide_inner .ServiceInfo_list .ServiceInfo_listItem dt .listItem_text2 {text-align: left;padding: 0 55px;font-style: 12px;} */    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

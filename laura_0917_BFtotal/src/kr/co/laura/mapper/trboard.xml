@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="trboard">
+
+
+	<!-- 글작성 id = tradd -->
+	<!-- TRADENUM,TRMEMNUM,TRWRITER,TRTITLE,TRIMGN,TRHIT,TRPRICE,TRCONTENT,TRLOC,TRUPDATE -->
+	<insert id="tradd" parameterType="trvo">
+		INSERT INTO trboard VALUES(
+		TRBOARD_SEQ.NEXTVAL,#{trmemnum},#{trwriter},#{trtitle},#{trimgn},0,#{trprice},#{trcontent},#{trloc},SYSDATE)
+	</insert>
+
+	<!-- 상세보기 id= trdetail SELECT trnum,trmemnum,trwriter,trtitle,trloc,trprice,trcontent,trimgn,trupdate 
+		FROM trboard WHERE trnum=#{trnum} -->
+	<select id="trdetail" parameterType="int" resultType="trvo">
+		SELECT
+		*
+		FROM trboard WHERE tradenum=#{tradenum}
+
+	</select>
+
+	<!-- 조회수 증가 id= thit -->
+	<update id="trhit" parameterType="int">
+		UPDATE trboard SET trhit =
+		trhit + 1
+		WHERE tradenum = #{tradenum}
+	</update>
+
+
+	<!-- 글수정 modify -->
+	<update id="trmodify" parameterType="trvo">
+		<!-- UPDATE TRBOARD SET trtitle = '테스트', TRIMGN='cat.png', TRPRICE=10000, 
+			TRCONTENT='수정테스트', TRLOC='서울' , TRUPDATE=SYSDATE WHERE TRADENUM=3 -->
+		UPDATE TRBOARD SET trtitle =
+		#{trtitle}, trimgn = #{trimgn},
+		trcontent=#{trcontent}, trprice = #{trprice},
+		trloc= #{trloc},
+		TRUPDATE=sysdate
+		WHERE tradenum = #{tradenum}
+	</update>
+
+
+	<!-- 글삭제 delete -->
+	<delete id="trdelete" parameterType="int">
+		DELETE FROM TRBOARD WHERE
+		tradenum = #{tradenum}
+	</delete>
+
+
+	<!-- 리스트 id = list -->
+	<!-- 페이징처리 =list================== -->
+	<!-- No 이미지 제목 작성자 지역 날짜 가격 댓글 -->
+	<!-- 정렬 -->
+	<select id="trlist" resultType="trvo" parameterType="map">
+		SELECT tradenum,trloc,trprice,
+
+		<choose>
+			<when test="searchValue != null and searchType != null">
+				<choose>
+					<when test="searchType == 1">
+				<![CDATA[ 
+		     	 replace(trtitle,#{searchValue},'<span class="searchCls">${searchValue}</span>') trtitle, trwriter,
+		       ]]>
+					</when>
+					<when test="searchType == 2">
+				<![CDATA[ 
+		      trtitle,replace(trwriter,#{searchValue},'<span class="searchCls">${searchValue}</span>') trwriter,
+		       ]]>
+					</when>
+					<when test="searchType == 3">trtitle,trwriter,</when>
+					<otherwise>
+						trtitle,trwriter,
+					</otherwise>
+				</choose>
+
+			</when>
+			<otherwise>
+				trtitle,trwriter,
+			</otherwise>
+		</choose>
+		trimgn,trupdate FROM (
+		SELECT ROWNUM r_num, a.* FROM (
+		SELECT
+		tradenum,trtitle,trwriter,trprice,trloc,
+		trimgn,trupdate
+		FROM TRBOARD
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 1">
+						trtitle like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 2">
+						trwriter like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 3">
+						trcontent like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+		<choose>
+			<when test="sortingVal != null">
+				<choose>
+					<when test="sortingVal == 1">
+						ORDER BY 1 DESC
+					</when>
+					<when test="sortingVal == 2">
+						ORDER BY trhit DESC
+					</when>
+				</choose>
+			</when>
+			<otherwise>
+				order by 1 desc
+			</otherwise>
+		</choose>
+
+		) a
+		) WHERE r_num BETWEEN #{trbegin} AND #{trend}
+	</select>
+
+	<!-- 페이징처리 ============================= -->
+	<select id="trtotalCount" parameterType="map" resultType="int">
+		SELECT COUNT(*) AS CNT FROM TRBOARD
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType ==1">
+						trtitle like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType ==2">
+						trwriter like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType ==3">
+						trcontent like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+	</select>
+	<!-- page search end -->
+
+
+
+	<!-- 댓글영역 ============================= -->
+	<!-- 댓글작성 -->
+	<insert id="traddcomm" parameterType="trcvo">
+		INSERT INTO TRCOMM
+		VALUES(TRCOMM_SEQ.NEXTVAL, #{trade_tradenum},#{tcwriter},#{tcomm},
+		SYSDATE)
+	</insert>
+
+	<select id="trcommlistBack" parameterType="int"
+		resultType="trcvo">
+		select tcnum,trade_tradenum,tcwriter,tcomm,tcdate from
+		trcomm where
+		trade_tradenum=#{trade_tradenum} order by 1 desc
+	</select>
+
+
+	<!-- 댓글리스트 -->
+	<!-- select tcnum, trade_tradenum,tcwriter,tcomm,tcdate from( select rownum 
+		r_num, a.* from( SELECT tcnum, trade_tradenum, tcwriter, tcomm, tcdate FROM 
+		TRCOMM WHERE trade_tradenum = #{trade_tradenum} ORDER BY 1 DESC ) a ) WHERE 
+		r_num BETWEEN #{trcommbegin} AND #{trcommend} -->
+
+	<select id="trcommList" parameterType="int" resultType="trcvo">
+
+		SELECT
+		tcnum, trade_tradenum, tcwriter, tcomm,
+		tcdate FROM TRCOMM WHERE
+		trade_tradenum =
+		#{trade_tradenum} ORDER BY 1
+		DESC
+
+	</select>
+
+	<select id="totaltrCommCount" parameterType="map"
+		resultType="int">
+		select count(*) from trcomm where
+		trade_tradenum=#{trade_tradenum}
+	</select>
+
+	<delete id="trcdel" parameterType="int">
+
+		DELETE FROM trcomm WHERE
+		trade_tradenum = #{tradenum}
+
+	</delete>
+
+
+</mapper>

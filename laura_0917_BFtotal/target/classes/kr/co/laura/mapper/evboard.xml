@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="evboard">
+
+	<!-- 글작성 id = add -->
+
+	<insert id="add" parameterType="evvo">
+		INSERT INTO EVBOARD
+		VALUES(EVBOARD_SEQ.NEXTVAL,
+		#{evTitle} , #{evContent},
+		#{reward},
+		#{evImg} ,#{evVeo} , 0 ,
+		TO_DATE(#{evSdate}, 'YYYY-MM-DD'),
+		TO_DATE(#{evSdate}, 'YYYY-MM-DD')+10 ,SYSDATE)
+	</insert>
+
+
+
+	<!-- 상세보기 id= detail -->
+	<select id="detail" parameterType="int" resultType="evvo">
+		SELECT EVNUM,
+		EVTITLE,EVCONTENT, REWARD,EVIMG,EVVEO, EVHIT, EVSDATE, EVFDATE,
+		EVWDATE FROM EVBOARD
+		WHERE EVNUM =#{evNum}
+	</select>
+
+
+	<!--조회수 증가 id= HIT -->
+	<update id="hit" parameterType="int">
+		UPDATE EVBOARD SET EVHIT = EVHIT
+		+ 1 WHERE EVNUM = #{evNum}
+	</update>
+
+
+	<!-- 글수정 modify -->
+	<update id="modify" parameterType="evvo">
+		UPDATE EVBOARD SET EVTITLE =
+		#{evTitle}, EVCONTENT = #{evContent},
+		REWARD =#{reward}, EVIMG =
+		#{evImg},
+		EVVEO = #{evVeo}, EVSDATE = TO_DATE(#{evSdate},
+		'YYYY-MM-DD'),
+		EVFDATE =TO_DATE(#{evSdate}, 'YYYY-MM-DD')+10 WHERE
+		EVNUM = #{evNum}
+	</update>
+
+
+	<!-- 글삭제 delete -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM EVBOARD WHERE
+		EVNUM = #{evNum}
+	</delete>
+
+	<!-- 리스트 + 페이징 처리 + 검색 -->
+	<select id="list" resultType="evvo" parameterType="map">
+		SELECT EVNUM,
+		<choose>
+			<when test="searchValue != null and searchType != null">
+				<choose>
+					<when test="searchType == 1">
+				<![CDATA[ 
+		     	 replace(EVTITLE,#{searchValue},'<span class="searchCls">${searchValue}</span>') EVTITLE, REWARD,
+		       ]]>
+					</when>
+					<when test="searchType == 2">
+				<![CDATA[ 
+		      EVTITLE,replace(REWARD,#{searchValue},'<span class="searchCls">${searchValue}</span>') REWARD,
+		       ]]>
+					</when>
+					<when test="searchType == 3">EVTITLE,REWARD,
+					</when>
+					<otherwise>
+						EVTITLE,REWARD,   <!-- 찾는 타입 없이 "" 선택시?인듯 -->
+					</otherwise>
+				</choose>
+			</when>
+			<otherwise>  <!-- 찾는 값이 널일 경우 -->
+				EVTITLE,REWARD,
+			</otherwise>
+		</choose>
+		EVIMG,EVVEO,EVHIT,EVCONTENT,EVSDATE,EVFDATE,EVWDATE FROM (
+		SELECT
+		ROWNUM r_num, a.* FROM (
+		SELECT
+		EVNUM ,EVTITLE,REWARD,
+		EVIMG,EVVEO,EVHIT,EVCONTENT,EVSDATE,EVFDATE,EVWDATE
+		FROM EVBOARD
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 1">
+						EVTITLE like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 2">
+						REWARD like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 3">
+						EVCONTENT like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+		ORDER BY 1 DESC
+		) a
+		) WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+
+
+
+	<select id="totalCount" parameterType="map" resultType="int">
+		SELECT COUNT(*) AS CNT FROM EVBOARD
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType ==1">
+						EVTITLE like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType ==2">
+						REWARD like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType ==3">
+						EVCONTENT like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+	</select>
+	<!--page search end -->
+
+
+
+	<!-- 댓글 영역 EVPboard -->
+	<insert id="addComm" parameterType="evpvo">
+		INSERT INTO EVPBOARD (EVPNUM,
+		EVBOARDNUM, EVWRITER,EVID,EVCONT, EVSTATUS, EVPDATE )
+		VALUES (EVPBOARD_SEQ.NEXTVAL, #{evboardNum}, #{evWriter},
+		#{evId}, #{evCont}, #{evStatus}, SYSDATE)
+	</insert>
+
+	<!-- 댓글 리스트 + 페이징처리 -->
+	<select id="listComm" resultType="evpvo" parameterType="map">
+		SELECT
+		EVPNUM, EVBOARDNUM, EVWRITER, EVID, EVCONT, EVSTATUS, WIN,EVPDATE
+		FROM (
+		SELECT ROWNUM r_num, A.*
+		FROM(
+		SELECT EVPNUM, EVBOARDNUM, EVWRITER, EVID, EVCONT, EVSTATUS, WIN,EVPDATE
+		FROM
+		EVPBOARD WHERE EVBOARDNUM = TO_NUMBER(#{evboardNum}) ORDER BY 1 DESC ) A
+		) WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+
+
+
+	<!-- 댓글 페이징2 -->
+	<select id="commTotalCount" parameterType="map" resultType="int">
+		SELECT COUNT(*) AS CNT FROM EVPBOARD WHERE EVBOARDNUM =
+		TO_NUMBER(#{evboardNum})
+	</select>
+
+	<!--댓글삭제 delete -->
+	<delete id="delComm" parameterType="int">
+		DELETE FROM EVPBOARD WHERE EVPNUM =#{evpNum}
+	</delete>
+
+	<!-- 댓글 수정 modify , 프로시저 호출 -->
+	<update id="modComm" parameterType="evpvo">
+		{call MODIFY_EVPBOARD(
+		#{evpNum, jdbcType=NUMERIC},
+		#{evId, jdbcType=VARCHAR},
+		#{evboardNum, jdbcType=NUMERIC},
+		#{evCont, jdbcType=CLOB},
+		#{evStatus, jdbcType=VARCHAR}
+		)}
+	</update>
+
+
+	<!-- 백업 구역 -->
+	<!-- 게시판 기본 리스트 -->
+	<select id="listBack" resultType="evvo">
+		SELECT EVNUM, EVTITLE, EVIMG,
+		REWARD, EVHIT, EVSDATE, EVFDATE, EVWDATE FROM
+		EVBOARD
+		ORDER BY 1 DESC
+	</select>
+	<!-- 댓글 기본 리스트 -->
+	<select id="listComm1111" resultType="evpvo" parameterType="map">
+		SELECT EVPNUM, EVBOARDNUM, EVWRITER, EVID, EVCONT, EVSTATUS,
+		WIN,EVPDATE
+		FROM EVPBOARD WHERE EVBOARDNUM = TO_NUMBER(#{evboardNum})
+	</select>
+	<!-- 댓글 수정 -->
+	<update id="modComm2" parameterType="evpvo">
+		UPDATE EVPBOARD SET EVCONT = #{evCont},
+		EVSTATUS = #{evStatus} WHERE EVPNUM =#{evpNum}
+	</update>
+
+	<!-- 백업 구역 -->
+
+
+
+</mapper>

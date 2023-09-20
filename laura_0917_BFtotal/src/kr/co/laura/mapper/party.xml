@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="party">
+
+	<insert id="add" parameterType="pvo">
+
+		INSERT INTO party
+		VALUES(PARTY_SEQ.NEXTVAL,#{pmemnum},#{pwriter},#{partytitle},#{partycontent},#{pimgn},0,#{partyloc},#{partydate},sysdate)
+
+	</insert>
+
+	<select id="partyList_Back" parameterType="map" resultType="pvo">
+
+		SELECT PARTYNUM,pwriter, PARTYTITLE, PIMGN, PARTYCONTENT, PHIT,PUPDATE
+		FROM
+		party order by 1 desc
+
+	</select>
+
+	<!-- 0824페이징처리 및 정렬 -->
+	<select id="partyList" parameterType="map" resultType="pvo">
+
+		SELECT PARTYNUM,
+		<choose>
+			<when test="searchValue != null and searchType != null">
+				<choose>
+					<when test="searchType == 1">
+ 				<![CDATA[
+ 				pwriter,replace(PARTYTITLE, #{searchValue},'<span class="searchCls">${searchValue}</span>') PARTYTITLE, 
+ 				]]>
+					</when>
+					<when test="searchType == 2">
+ 				<![CDATA[
+ 				replace(pwriter,#{searchValue},'<span class="searchCls">${searchValue}</sapn>') pwriter,partytitle,
+ 				]]>
+					</when>
+					<when test="searchType == 3">pwriter,PARTYTITLE,</when>
+					<otherwise>
+						pwriter,PARTYTITLE,
+					</otherwise>
+				</choose>
+			</when>
+			<otherwise>
+				pwriter,PARTYTITLE,
+			</otherwise>
+		</choose>
+		PIMGN, PARTYCONTENT,
+		PHIT,PUPDATE FROM
+		(SELECT ROWNUM r_num, a.* FROM(
+		SELECT PARTYNUM,pwriter, PARTYTITLE, PIMGN, PARTYCONTENT,
+		PHIT,PUPDATE
+		FROM party
+
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 1">
+						PARTYTITLE like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 2">
+						pwriter like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 3">
+						PARTYCONTENT like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+		<choose>
+			<when test="sortingVal != null">
+				<choose>
+					<when test="sortingVal == 1">
+						order by 1 desc
+					</when>
+					<when test="sortingVal == 2">
+						ORDER BY phit DESC
+					</when>
+				</choose>
+			</when>
+			<otherwise>
+				order by 1 desc
+			</otherwise>
+		</choose>
+
+		) a
+		)WHERE r_num BETWEEN #{begin} AND #{end}
+
+	</select>
+	<!-- 정렬끝 -->
+
+	<update id="uphit" parameterType="int">
+
+		UPDATE party SET phit = phit +
+		1 WHERE partynum = #{partynum}
+
+	</update>
+
+	<select id="partyDetail" parameterType="int" resultType="pvo">
+
+		SELECT
+		partynum,pmemnum,pwriter,partytitle,partycontent,phit,pimgn,partyloc,TO_CHAR(partydate,
+		'yyyy-mm-dd') AS partydate, TO_CHAR(pupdate,'yyyy-mm-dd') AS pupdate
+		FROM party WHERE partynum = #{partynum}
+
+	</select>
+
+	<delete id="partydelete" parameterType="int">
+
+		DELETE FROM party WHERE
+		partynum = #{partynum}
+
+	</delete>
+
+	<update id="modify" parameterType="pvo">
+
+		UPDATE party SET
+		partytitle=#{partytitle}, partycontent=#{partycontent},
+		partyloc=#{partyloc}, pimgn=#{pimgn},
+		partydate=#{partydate},pupdate=sysdate WHERE partynum=#{partynum}
+
+	</update>
+
+	<select id="totalCount" parameterType="map" resultType="int">
+
+		SELECT COUNT(*) AS CNT FROM PARTY
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType ==1">
+						partytitle like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType ==2">
+						pwriter like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+	</select>
+
+	<!-- 댓글 -->
+
+	<insert id="addPComm" parameterType="pcvo">
+
+		<!-- INSERT INTO PARTYCOMM VALUES(#{party_pnum},#{pcname},#{pccomm},sysdate) -->
+		INSERT into PARTYCOMM
+		VALUES(partyCOMM_seq.nextval,#{party_partynum},#{pcwriter},#{pcomm},sysdate)
+	</insert>
+
+	<!-- 페이징처리 작업 -->
+	<select id="pcommList" parameterType="map"
+		resultType="pcvo">
+
+		<!-- SELECT * FROM PARTYCOMM WHERE party_partynum = #{party_partynum} ORDER 
+			BY 1 desc -->
+		<![CDATA[
+		SELECT PCNUM,PARTY_PARTYNUM,PCWRITER,PCOMM,PCDATE FROM(
+		SELECT ROWNUM r_num, a.* FROM(
+		SELECT PCNUM,PARTY_PARTYNUM,PCWRITER,PCOMM,PCDATE FROM PARTYCOMM WHERE party_partynum = #{partynum} ORDER BY 1 DESC
+		) a
+		)WHERE r_num BETWEEN #{begin} AND #{end}
+		]]>
+	</select>
+
+	<!-- 댓글갯수 확인 -->
+	<select id="commtotalCount" parameterType="map" resultType="int">
+		SELECT COUNT(*) AS cnt FROM partycomm WHERE
+		PARTY_PARTYNUM=#{partynum}
+	</select>
+
+
+	<!-- 0907 다른점 확인필요 -->
+	<delete id="pcdel" parameterType="int">
+
+		DELETE FROM PARTYCOMM WHERE
+		pcnum = #{pcnum}
+
+	</delete>
+
+	<update id="pcModify" parameterType="pcvo">
+
+		UPDATE PARTYCOMM SET pcomm=#{pcomm}, pcdate=SYSDATE WHERE pcnum=#{pcnum}
+
+	</update>
+
+</mapper>
+ 

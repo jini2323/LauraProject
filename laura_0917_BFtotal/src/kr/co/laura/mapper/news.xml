@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- news.xml => 뉴스관련 mapper -->
+<mapper namespace="news">
+	<!-- 뉴스 작성 id=add -->
+	<insert id="add" parameterType="nvo">
+		<!-- (nnum,nwriter,ncompany,ntitle,ncontent,npreview,nimgn,nvideon,nhit,ndate) -->
+		INSERT INTO NEWS_UPLOAD VALUES(NEWSNUM_SEQ.NEXTVAL,
+		#{nwriter},#{ncompany},#{ntitle},#{ncontent},#{npreview},#{nimgn},#{nvideon},0,SYSDATE)
+	</insert>
+
+	<!-- 뉴스 상세보기 id=detail -->
+	<!-- NNUM,NWRITER,NCOMPANY,NTITLE,NCONTENT,NPREVIEW,NIMGN,NVIDEON,NHIT,NDATE -->
+	<select id="detail" parameterType="int" resultType="nvo">
+		SELECT
+		NWRITER,NCOMPANY,NTITLE,NCONTENT,NIMGN,NVIDEON,NHIT,NDATE FROM NEWS_UPLOAD
+		WHERE
+		NNUM=#{nnum}
+	</select>
+
+	<!-- 조회수 id=hit -->
+	<update id="hit" parameterType="int">
+		UPDATE NEWS_UPLOAD SET
+		NHIT=nhit+1 WHERE NNUM=#{nnum}
+	</update>
+
+	<!-- 뉴스 목록 id=list -->
+	<!-- <select id="listBackUp" resultType="nvo"> SELECT NNUM,NWRITER,NCOMPANY,NTITLE,NPREVIEW,NIMG,NHIT,NDATE 
+		FROM NEWS_UPLOAD </select> -->
+	<select id="list" resultType="nvo" parameterType="map">
+		SELECT nnum,
+		<choose>
+			<when test="searchValue != null and searchType != null">
+				<choose>
+					<when test="searchType == 1">
+				<![CDATA[ 
+		     	 replace(ntitle,#{searchValue},'<span class="searchCls">${searchValue}</span>') ntitle, ncontent,
+		       ]]>
+					</when>
+					<when test="searchType == 2">ntitle,ncontent,</when>
+					<otherwise>
+						ntitle,ncontent,
+					</otherwise>
+				</choose>
+
+			</when>
+			<otherwise>
+				ntitle,ncontent,
+			</otherwise>
+		</choose>
+		NWRITER,NCOMPANY,NPREVIEW,NIMGN,NHIT,NDATE FROM (
+		SELECT ROWNUM r_num,
+		a.* FROM (
+		SELECT
+		nnum,ntitle,ncontent,
+		NWRITER,NCOMPANY,NPREVIEW,NIMGN,NHIT,NDATE
+		FROM NEWS_UPLOAD
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 1">
+						ntitle like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 2">
+						ncontent like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+		ORDER BY 1 DESC
+		) a
+		) WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+
+	<!-- 페이징 처리 -->
+	<select id="totalCount" parameterType="map" resultType="int">
+		SELECT COUNT(*) AS CNT FROM NEWS_UPLOAD
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType ==1">
+						ntitle like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType ==2">
+						ncontent like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+	</select>
+
+	<!-- 수정 id=modify -->
+
+	<!-- 삭제 id=delete -->
+
+</mapper>

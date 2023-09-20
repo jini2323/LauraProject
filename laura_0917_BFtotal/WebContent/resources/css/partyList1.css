@@ -1,0 +1,32 @@
+@charset "EUC-KR";
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+      background-color: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    color: #00c4c4;
+    margin: 10px 0;
+}
+.container {}
+.ui-tab{margin-top:40px}
+.ui-tab .tab{display:flex;gap: 50px;justify-content: center;}
+.ui-tab .tab li{background-color: var(--mint-m-100, #E7F9F9);width: 150px;height: 100px;text-align: center;border-radius: 1rem;}
+
+.test-tbl .test-tbl-item:first-child {border-top: 1px solid #bcbcbc; border-bottom: 1px solid #bcbcbc;}
+.test-tbl .test-tbl-item {border-bottom: 1px solid #bcbcbc;}
+.test-tbl .test-tbl-item td{padding: 18px 18px; text-align: right;} /*td: 전체*/
+.test-tbl .test-tbl-item td:first-child {text-align: left; padding-left: 13px;} /* 안녕하세요 ~ 이 부분  */
+.test-tbl .test-tbl-item td:nth-child()
+.test-tbl .test-tbl-item span{padding-bottom: 10px;}
+.test-tbl .test-tbl-item .tbl-item-comments {background-color: #f5f6f8; padding: 22px 14px; border-radius: 6px; color:#979797;}
+
+#searchType {width: 100px; height: 31px;}
+/* 셀렉션 박스 */
+.bar{display: flex; margin:0 0 10px 10px;}	
+.bar .selectBox{width:80px;}

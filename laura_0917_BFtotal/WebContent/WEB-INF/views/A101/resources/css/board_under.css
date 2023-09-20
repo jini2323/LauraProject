@@ -1,0 +1,41 @@
+@charset "EUC-KR";
+
+.container div .ui-tab {margin-top:40px;}
+.container div .ui-tab .tab {display:flex;gap: 50px;justify-content: center;}
+.container div .ui-tab .tab li {background-color: var(--mint-m-100, #E7F9F9);width: 150px;height: 100px;text-align: center;border-radius: 1rem;}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    color: #00c4c4;
+    margin: 10px 0;
+}
+/*뉴스 리스트 아래 검색, 페이지네이션, 글작성 버튼 css영역(박원빈 수정)*/
+.n_uderbar{
+	height: 100%;
+}
+.n_search{
+	/* border:1px solid gray; */
+	float: left;
+	margin-left: 10px;
+}
+.n_pagenation{
+	width : 300px;
+	/* border:1px solid red; */
+	float: left;
+	margin-left: 10px;
+}
+.n_newbtn{
+	/* border:1px solid blue; */
+	float: left;
+	margin-left: 10px;
+	float: right;
+}
+/*뉴스 리스트 아래 검색, 페이지네이션, 글작성 버튼 css영역*/

@@ -1,0 +1,52 @@
+@charset "EUC-KR";
+/*글꼴*/
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+h2{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+h3{font-family: 'NanumSquareNeo-Variable';}
+h4{font-family: 'NanumSquareNeo-Variable';}
+h5{font-family: 'NanumSquareNeo-Variable';}
+h6{font-family: 'NanumSquareNeo-Variable';}
+p{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+span{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+div{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+dl{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+b{font-family: 'NanumSquareNeo-Variable';}
+button{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+
+/*아이콘 */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+}
+
+.container .test-tbl .ui-tab{margin-top:40px}
+.container .test-tbl .ui-tab ul{display:flex;gap: 50px;justify-content: center;}
+.container .test-tbl .ui-tab ul li{background-color: var(--mint-m-100, #E7F9F9);width: 150px;height: 100px;text-align: center;border-radius: 1rem;}
+
+
+
+.test-tbl .test-tbl-item:first-child {border-top: 1px solid #bcbcbc; border-bottom: 1px solid #bcbcbc;}
+.test-tbl .test-tbl-item {border-bottom: 1px solid #bcbcbc;}
+.test-tbl .test-tbl-item td{padding: 18px 0;}
+.test-tbl .test-tbl-item img{width: 55%; height:70px; border-radius: 6%;}
+.test-tbl tbody tr td:nth-child(2) {text-align: left;}
+.test-tbl .test-tbl-item .tbl-item-comments {background-color: #f5f6f8; padding: 22px 14px; border-radius: 6px; color:#979797;}
+.icon {display: flex; text-align: center;}
+/*.test-tbl .test-tbl-item span{padding-bottom: 10px;}*/
+.test-tbl .test-tbl-notice {border-bottom: 1px solid #bcbcbc;}
+.test-tbl .test-tbl-notice td{padding: 5px 20px; text-align: right;} 
+.test-tbl .test-tbl-notice:first-child {border-top: 1px solid #bcbcbc; border-bottom: 1px solid #bcbcbc;}
+.test-tbl .test-tbl-notice span{white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+
+
+.container .selectBox{text-align: left; margin-left: 10px; margin-bottom: 10px;}
+.container .selectBox select:nth-child(2) {width: 120px;}
+.container .selectBox select:nth-child(3) {width: 100px;}

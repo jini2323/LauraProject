@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+/*
+0824_박형지
+펀딩프로젝트 버튼때문에 별도로 추가한 css
+*/
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+h2{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+h3{font-family: 'NanumSquareNeo-Variable';}
+h4{font-family: 'NanumSquareNeo-Variable';}
+h5{font-family: 'NanumSquareNeo-Variable';}
+h6{font-family: 'NanumSquareNeo-Variable';}
+p{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+span{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+div{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+dl{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+b{font-family: 'NanumSquareNeo-Variable';}
+button{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+
+
+.col-12.col-sm-2-button {
+    margin-top: 8px;
+    border-radius: 4px;
+    vertical-align: top;
+}
+
+.Button_button__2FuOU {
+    border-color: #00c4c4;
+    background-color: #00c4c4;
+    color: #fff;
+    border:none;
+    width: 130px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 10px 10px;
+    font-size: 12px;
+}
+.Button_button__2FuOU span {padding:0px;}
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}

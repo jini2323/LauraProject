@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="fboard">
+
+	<!-- 펀딩 업로드 -->
+	<!-- FUNNUM,FUPMEMNUM,FUNTITLE,FUNWRITER,CONTENT,FUNPREVIEW,TARGETPRICE,COST,POSTIMGN,SDATE,FDATE,(FUNVIDEO,ACTPIC,FUNPURPOSE,FUNBUDGET),FUPDATE -->
+	<insert id="add" parameterType="fvo">
+		INSERT INTO FBOARD
+		VALUES(FBOARD_SEQ.NEXTVAL, #{fupmemnum}, #{funtitle}, #{funwriter},
+		#{content}, #{funpreview}, #{targetprice}, #{cost}, #{postimgn},
+		#{sdate}, #{fdate}, #{funvideo}, #{actpic}, #{funpurpose},
+		#{funbudget}, sysdate)
+	</insert>
+
+	<!-- 상세보기 id= detail -->
+	<!-- 0817_박형지_일단 *로 받고 추후 수정 예정 -->
+	<select id="detail" parameterType="int" resultType="fvo">
+		SELECT * FROM
+		FBOARD WHERE funnum = #{funnum}
+	</select>
+
+	<!-- 조회수 증가 id= HIT -->
+	<!-- 0817_박형지_펀딩쪽은 조회수 없음 -->
+
+
+	<!-- 글수정 modify -->
+	<update id="modify" parameterType="fvo">
+		UPDATE FBOARD SET TITLE =
+		#{title}, IMGN = #{imgn}, PREVIEW = #{preview},
+		CONTENT=#{content},
+		COST =#{cost} WHERE FNUM = #{fnum}
+	</update>
+
+
+	<!-- 글삭제 delete -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM FBOARD WHERE FNUM
+		= #{fnum}
+	</delete>
+
+
+	<!-- 리스트 id = list -->
+	<!-- 페이징처리 =list================== -->
+	<select id="list" resultType="fvo" parameterType="map">
+		SELECT funnum,
+
+		<choose>
+			<when test="searchValue != null and searchType != null">
+				<choose>
+					<when test="searchType == 1">
+				<![CDATA[ 
+		     	 replace(funtitle,#{searchValue},'<span class="searchCls">${searchValue}</span>') funtitle, funwriter,
+		       ]]>
+					</when>
+					<when test="searchType == 2">
+				<![CDATA[ 
+		      funtitle,replace(funwriter,#{searchValue},'<span class="searchCls">${searchValue}</span>') funwriter,
+		       ]]>
+					</when>
+					<when test="searchType == 3">funtitle,funwriter,</when>
+					<otherwise>
+						funtitle,funwriter,
+					</otherwise>
+				</choose>
+
+			</when>
+			<otherwise>
+				funtitle,funwriter,
+			</otherwise>
+		</choose>
+		postimgn,funpreview,fupdate FROM (
+		SELECT ROWNUM r_num, a.* FROM (
+		SELECT
+		funnum,funtitle,funwriter,
+		postimgn,funpreview,fupdate
+		FROM FBOARD
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType == 1">
+						funtitle like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 2">
+						funwriter like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType == 3">
+						content like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+		ORDER BY 1 DESC
+		) a
+		) WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+
+
+	<!-- 리스트 백업 -->
+	<select id="listBack" resultType="fvo">
+		SELECT FNUM, IMGN, TITLE, HIT,
+		SDATE FROM FBOARD ORDER BY 1 DESC
+	</select>
+
+	<select id="list22" resultType="fvo">
+		FNUM,IMGN,TITLE,HIT,SDATE FROM(
+		SELECT ROWNUM r_num, a.* FROM(
+		SELECT FNUM,IMGN,TITLE,HIT,SDATE
+		FROM
+		FBOARD
+		ORDER BY 1 DESC
+		) a
+		)WHERE r_num BETWEEN #{begin} AND #{end}
+	</select>
+	<!-- 리스트 백업 끝 -->
+
+
+	<!-- 페이징처리 ============================= -->
+	<select id="totalCount" parameterType="map" resultType="int">
+		SELECT COUNT(*) AS CNT FROM FBOARD
+		<if test="searchValue != null and searchType != null">
+			<where>
+				<choose>
+					<when test="searchType ==1">
+						funtitle like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType ==2">
+						funwriter like '%'|| #{searchValue} ||'%'
+					</when>
+					<when test="searchType ==3">
+						content like '%'|| #{searchValue} ||'%'
+					</when>
+				</choose>
+			</where>
+		</if>
+	</select>
+	<!-- page search end -->
+
+
+	<!-- 0711_펀딩참여_박형지 -->
+	<insert id="addFCoin" parameterType="fpvo">
+		INSERT INTO funding_parti
+		VALUES(#{fmem_num},#{funnum_num},#{funmoney},#{funstatus},SYSDATE)
+	</insert>
+
+	<!-- 펀딩 확인 -->
+	<select id="fpcoinChk" parameterType="fpvo" resultType="fpvo">
+		SELECT
+		fmem_num,funnum_num,funmoney,funstatus,joindate FROM FUNDING_PARTI
+		WHERE funnum_num=#{funnum_num} and fmem_num=#{fmem_num}
+	</select>
+
+	<!-- 0826_박형지: 펀딩디테일에서 펀딩 여부 확인 -> 버튼 활성 다르게 함 -->
+	<select id="chkfunstatus" parameterType="fpvo" resultType="int">
+		SELECT COUNT(funstatus) FROM FUNDING_PARTI WHERE FMEM_NUM=#{fmem_num} AND
+		FUNNUM_NUM=#{funnum_num}
+	</select>
+</mapper>

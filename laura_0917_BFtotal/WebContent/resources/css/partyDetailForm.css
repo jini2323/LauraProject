@@ -1,0 +1,26 @@
+@charset "EUC-KR";
+
+.pagemain {margin:30px;border:1px solid #d8d8d8;padding:30px;border-radius:7px;}
+.single-blog-content {}
+.pagemain .prwriter {display: flex;gap:10px}
+.pagemain .prwriter img{border-radius: 50%;width: 30px;height: 30px}
+.pagemain .buttons{text-align: right;padding-bottom: 30px;border-bottom: 1px solid #eee;}
+.pagemain .buttons a {background-color:#eee;font-size:12px;border-radius:5px;padding:8px 15px;font-family: 'NanumSquareNeo-Variable';}
+.comment_area {border:none;}
+.single_comment_area {border-bottom:1px solid #eee;padding-bottom: 15px;}
+.comment-content {}
+.comment-content .comment-author {display:flex;gap:10px;}
+.comment-content .comment-author img {width:30px;height:30px;border-radius:50%;}
+.comment-content .comment-author span {font-size:13px;}
+.partyComm {margin-bottom:50px;}
+.mainComm {display:grid;border: 2px solid #eee;padding: 15px;border-radius: 7px;}
+.mainComm .mainPComm {display:grid;}
+.mainComm .mainPComm #pcwriter {border:none;margin-bottom:7px;font-weight: bold;outline:0;}
+.mainComm #pcomm{border: 0;outline: 0;resize: none;}
+.mainComm .commBtn {text-align:end;}
+.mainComm .commBtn button{border:none;padding:8px 15px;background-color:#eee;font-size:12px;border-radius:5px;}
+.post-a-comment-area .comment_area {margin-top:40px}
+
+
+
+

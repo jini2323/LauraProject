@@ -1,0 +1,145 @@
+@charset "EUC-KR";
+/*글씨체*/
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+p{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+span{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+div{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+dl{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+b{font-family: 'NanumSquareNeo-Variable';}
+h4{font-family: 'NanumSquareNeo-Variable';}
+h5{font-family: 'NanumSquareNeo-Variable';}
+button{font-family: 'NanumSquareNeo-Variable';font-weight: 300;}
+
+/*아이콘*/
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+.contentWrapper {margin-top:30px;}
+.contentWrapper .container {display: flex; position: relative;}
+.contentWrapper .container .profile {position: relative; padding: 40px 24px 0; width: 240px; box-sizing: content-box; padding: 20px;}
+.contentWrapper .container .profile .profile-box {display: grid; gap:13px; text-align: center;}
+.contentWrapper .container .profile .profile-box div .profile-img {border: none;}
+.contentWrapper .container .profile .profile-box div .profile-img img {border-radius: 50%; width: 70px;height: 70px;}
+.contentWrapper .container .profile .profile-box .profile_info {display: grid;}
+.contentWrapper .container .profile .profile-box .profile_info .profile_userName {display:flex; justify-content: center;}
+.contentWrapper .container .profile .profile-box .profile_info .profile_customStatus {display: flex;align-items: center;justify-content: center;}
+.contentWrapper .container .profile .profile-box .profile_info .profile_customStatus p{font-size: 8px;}
+.contentWrapper .container .profile .profile-box .profile_info .profile_userName .profile_custom {font-size:13px; margin-top: 7px; display:flex; justify-content: center;}
+.contentWrapper .container .profile .profile-box .profile_info .profile_userName .profile_custom p {margin-left:5px;}
+.contentWrapper .container .profile .profile-box .logout {}
+.contentWrapper .container .profile .profile-box .logout a .button {border:1px solid #dedede; border-radius:60px; background-color:#fff; padding: 10px 80px;}
+.contentWrapper .container .profile .profile-box .logout a .button span {font-size:13px;}
+.contentWrapper .container .contents {position: relative; flex-shrink: 0;background-color: #fff; padding: 20px 24px 0px;width: calc(100% - 336px); box-sizing: content-box; border-left: 1px solid rgba(0,0,0,.1);; margin-bottom: 100px;}
+.contentWrapper .container .contents div h5{background-color: #00c4c4;height: 50px;border-radius: 10px;display: flex;align-items: center;font-weight: bold;padding: 0 20px;color: #fff;}
+.contentWrapper .container .contents .content_list {margin:15px 0 20px;display:flex;margin: 10px 0 3s0px;width: -webkit-fill-available;border: 1px solid #e9ecef; border-radius: 8px; background-color: #f9fafb; padding: 12px 35px; text-align:center;}
+.contentWrapper .container .contents .content_list .content_list_item {width: -webkit-fill-available;}
+.contentWrapper .container .contents .content_list .content_list_item a dl {display:flex;height: 20px;align-items: center; flex-direction: row; width: 100%; cursor: pointer; margin-bottom:0px;}
+.contentWrapper .container .contents .content_list .content_list_item a dl dt {color:black; font-weight: bold;}
+.contentWrapper .container .contents .content_list .content_list_item a dl dd {margin-bottom:0; font-size:13px; margin-left: 10px;}
+.contentWrapper .container .contents .Divider_divider__ToZaf {margin: 12px 0; height: 1px;}
+.contentWrapper .container .contents .custom_container {display:flex; flex-direction: row; gap:10px;}
+.contentWrapper .container .contents .custom_container .custom-point-box {display:flex; flex: 0 1 auto; margin: 0; width: 380px; border: 1px solid #e9ecef; border-radius: 8px; background-color: #f9fafb; padding: 12px 16px; text-align:center;}
+.contentWrapper .container .contents .custom_container .custom-point-box .point-coup {flex-direction: column; display: flex; flex: 1; width: 100%;}
+.contentWrapper .container .contents .custom_container .custom-point-box .point-coup a dl {display:flex; justify-content: space-between; flex-direction: row; width: 100%; cursor: pointer; margin-bottom:0px;}
+.contentWrapper .container .contents .custom_container .custom-point-box .point-coup a dl dt {display: flex;align-items: flex-end;}
+.contentWrapper .container .contents .custom_container .custom-point-box .point-coup a dl dd {margin-bottom:0; color: #00c4c4; font-size:18px;}
+.contentWrapper .container .contents .regi_payment_container .regi_payment {background-color: #fff; height:40px; margin: 30px 0 20px 0; border-radius: 8px; border: 1px solid #ddd;display:flex; align-items: center; padding-left:10px;}
+.contentWrapper .container .contents .regi_payment_container .regi_payment .bannerInner .banner-content {display:flex; gap:290px;}
+.contentWrapper .container .contents .regi_payment_container .regi_payment .bannerInner .banner-content .banner-text {display:flex; gap:9px; align-items: center}
+.contentWrapper .container .contents .regi_payment_container .regi_payment .bannerInner .banner-content .banner-text .payment_text {font-size:12px; color:#a1a1a1; margin-bottom:0; display: contents;}
+.contentWrapper .container .contents .regi_payment_container .regi_payment .bannerInner .banner-content .vari_payment {display: flex; align-items: center;}
+.contentWrapper .container .contents .regi_payment_container .regi_payment .bannerInner .banner-content .vari_payment .vari_payment_text {font-size:11px; color:#00c4c4}
+.contentWrapper .container .contents .regi_payment_container .regi_payment .bannerInner .banner-content .vari_payment .material-symbols-outlined {color:#00c4c4;}
+.contentWrapper .container .contents .eventBanner-start .eventBanner {background-color: rgb(165, 229, 230); height:76px; margin-bottom:30px; border-radius: 8px;}
+.contentWrapper .container .contents .eventBanner-start .eventBanner .bannerInner {margin: 0 auto; width: 320px; height: 100%;}
+.contentWrapper .container .contents .eventBanner-start .eventBanner .bannerInner .banner-content {padding: 15px 14px 0 9px; width: 100%; height: 100%; box-sizing: border-box;}
+.contentWrapper .container .contents .eventBanner-start .eventBanner .bannerInner .banner-content .banner-text {display: flex; align-items: center;}
+.contentWrapper .container .contents .eventBanner-start .eventBanner .bannerInner .banner-content .banner-text img {max-width: 100px; height: auto; margin-right: 10px;}
+.contentWrapper .container .contents .eventBanner-start .eventBanner .bannerInner .banner-content .banner-text div p {margin-bottom: 0; color: black;}
+.contentWrapper .container .contents .Myinfo_list {margin-top: 20px; margin-bottom: 20px; padding: 0;}
+.Myinfo_list :after {display: block;clear: both;content: "";}
+.contentWrapper .container .contents .Myinfo_list h4 {padding: 0; line-height: 28px; font-size: 18px; font-weight: 700; margin-top: 70px;}
+.contentWrapper .container .contents .Myinfo_list div ul li {float: left; width: 50%; padding: 16px 15px 16px 0; border-bottom: 1px solid #dedede;}
+.contentWrapper .container .contents .Myinfo_list div ul li a div {display: flex; align-items: flex-end; position: relative; gap: 10px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

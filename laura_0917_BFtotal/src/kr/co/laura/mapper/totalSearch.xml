@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="totalSearch">
+
+	<select id="fundingSearchCount" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*) FROM FBOARD WHERE FUNTITLE LIKE '%'||
+		#{searchValue} ||'%' OR CONTENT LIKE '%'||
+		#{searchValue} ||'%'
+	</select>
+
+	<select id="fundingSearchValue" parameterType="map"
+		resultType="fvo">
+		<!-- WHERE FUNTITLE LIKE '%'|| #{searchValue} ||'%' OR CONTENT LIKE '%'|| 
+			#{searchValue} ||'%' -->
+		SELECT funtitle, SUBSTR(content, 1, 50) AS content FROM FBOARD WHERE
+		FUNTITLE LIKE '%'|| #{searchValue} ||'%' OR CONTENT LIKE '%'||
+		#{searchValue} ||'%'
+	</select>
+
+	<select id="partySearchCount" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*) FROM PARTY WHERE PARTYTITLE LIKE '%'||
+		#{searchValue} ||'%' OR PARTYCONTENT LIKE '%'||
+		#{searchValue} ||'%'
+	</select>
+
+	<select id="partySearchValue" parameterType="map"
+		resultType="pvo">
+		<!-- WHERE FUNTITLE LIKE '%'|| #{searchValue} ||'%' OR CONTENT LIKE '%'|| 
+			#{searchValue} ||'%' -->
+		SELECT PARTYTITLE, SUBSTR(partycontent, 1, 50) AS PARTYCONTENT FROM
+		PARTY WHERE
+		PARTYTITLE LIKE '%'|| #{searchValue} ||'%' OR PARTYCONTENT
+		LIKE '%'||
+		#{searchValue} ||'%'
+	</select>
+
+	<!-- 교환 양도 -->
+	<select id="tradeSearchCount" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*) FROM TRBOARD WHERE TRTITLE LIKE '%'||
+		#{searchValue} ||'%' OR TRCONTENT LIKE '%'||
+		#{searchValue} ||'%'
+	</select>
+
+	<select id="tradeSearchValue" parameterType="map"
+		resultType="trvo">
+		<!-- WHERE FUNTITLE LIKE '%'|| #{searchValue} ||'%' OR CONTENT LIKE '%'|| 
+			#{searchValue} ||'%' -->
+		SELECT TRTITLE, SUBSTR(trcontent, 1, 50) AS TRCONTENT FROM
+		TRBOARD
+		WHERE
+		TRTITLE LIKE '%'|| #{searchValue} ||'%' OR TRCONTENT
+		LIKE '%'||
+		#{searchValue} ||'%'
+	</select>
+
+	<!-- 뉴스 -->
+	<select id="newsSearchCount" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*) FROM NEWS_UPLOAD WHERE NTITLE LIKE '%'||
+		#{searchValue} ||'%' OR NCONTENT LIKE '%'||
+		#{searchValue} ||'%'
+	</select>
+
+	<select id="newsSearchValue" parameterType="map"
+		resultType="nvo">
+		<!-- WHERE FUNTITLE LIKE '%'|| #{searchValue} ||'%' OR CONTENT LIKE '%'|| 
+			#{searchValue} ||'%' -->
+		SELECT NTITLE, SUBSTR(ncontent, 1, 50) AS NCONTENT FROM
+		NEWS_UPLOAD
+		WHERE
+		NTITLE LIKE '%'|| #{searchValue} ||'%' OR NCONTENT
+		LIKE '%'||
+		#{searchValue} ||'%'
+	</select>
+
+	<!-- 이벤트 -->
+	<select id="eventSearchCount" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*) FROM EVBOARD WHERE EVTITLE LIKE '%'||
+		#{searchValue} ||'%' OR EVCONTENT LIKE '%'||
+		#{searchValue} ||'%'
+	</select>
+
+	<select id="eventSearchValue" parameterType="map"
+		resultType="evvo">
+		<!-- WHERE FUNTITLE LIKE '%'|| #{searchValue} ||'%' OR CONTENT LIKE '%'|| 
+			#{searchValue} ||'%' -->
+		SELECT EVTITLE, SUBSTR(evcontent, 1, 50) AS EVCONTENT FROM
+		EVBOARD
+		WHERE
+		EVTITLE LIKE '%'|| #{searchValue} ||'%' OR EVCONTENT
+		LIKE '%'||
+		#{searchValue} ||'%'
+	</select>
+
+
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="visitCount">
+
+	<insert id="insertVisitCount">
+		INSERT INTO VISIT_COUNT
+		(REGDATE, VCOUNT)
+		VALUES
+		(SYSDATE, 1)
+	</insert>
+
+	<update id="updateVisitCount">
+		UPDATE VISIT_COUNT
+		SET VCOUNT = VCOUNT + 1
+		WHERE REGDATE = TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+	</update>
+
+	<select id="selectVisitCount" resultType="visitC">
+		SELECT REG_DATE, VCOUNT
+		FROM VISIT_COUNT
+		WHERE REG_DATE = TO_DATE(TO_CHAR(SYSDATE, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+	</select>
+
+
+</mapper>
