@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.laura.mvc.dao.TotalSearchDaoInter;
-import kr.co.laura.mvc.service.VisitCountService;
 import kr.co.laura.mvc.service.VisitService;
 //import kr.co.laura.mvc.service.VisitService;
 import kr.co.laura.mvc.vo.EVboardVO;
@@ -30,8 +29,6 @@ public class MainController {
 	@Autowired
 	private VisitService visitService;
 	
-	@Autowired
-	private VisitCountService visitCountService;
 
 	
 	@RequestMapping(value = { "/", "/main" }, method = RequestMethod.GET) // 이게 요청

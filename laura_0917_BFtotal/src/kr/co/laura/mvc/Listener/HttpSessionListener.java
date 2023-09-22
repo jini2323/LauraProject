@@ -1,3 +1,4 @@
+/*
 package kr.co.laura.mvc.Listener;
 
 import javax.servlet.annotation.WebListener;
@@ -7,8 +8,6 @@ import javax.servlet.http.HttpSessionEvent;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import kr.co.laura.mvc.service.VisitCountService;
-import kr.co.laura.mvc.vo.VisitCountVO;
 
 @WebListener
 public class HttpSessionListener implements javax.servlet.http.HttpSessionListener {
@@ -57,4 +56,4 @@ public class HttpSessionListener implements javax.servlet.http.HttpSessionListen
 	       System.out.printf("로그인된 사용자 수 : %d \n", todayVisitCount);
 	}
 
-}
+} */
