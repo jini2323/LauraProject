@@ -36,9 +36,6 @@
 		<!-- 포인트 -->
 		<typeAlias type="kr.co.laura.mvc.vo.PointVO" alias="point"/>
 		
-		<!-- 방문자수 카운트 -->
-		<typeAlias type="kr.co.laura.mvc.vo.VisitCountVO" alias="visitC"/>
-		
 		
 
 	</typeAliases>
