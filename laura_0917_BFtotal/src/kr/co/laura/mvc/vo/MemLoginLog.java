@@ -3,35 +3,26 @@ package kr.co.laura.mvc.vo;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mem_logVO {
+public class MemLoginLog {
 	
-	
-	/*
-	 * int num; //기본키 int laura_num; //외래키 String reip; String uagent; private
-	 * String status; //로그인 상태 private String sstime, eetime; //로그인 시간대
-	 * 
-	 */
-	
-	private int num; //기본키
-	private String laura_memnum; //외래키   LAURA_MEMNUM 
-	private String reip,uagent;
-	private String sstime, eetime; //로그인 시간대
+	private int lognum; //기본키
+	private String idn; //외래키 멤버 테이블의 이메일
+ 	private String reip,uagent;
+	private String sstime, eetime; //로그인 시간대  logtime
 	private String status; //로그인 상태
 	
 	
-	
-	public int getNum() {
-		return num;
+	public int getLognum() {
+		return lognum;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setLognum(int lognum) {
+		this.lognum = lognum;
 	}
-	
-	public String getLaura_memnum() {
-		return laura_memnum;
+	public String getIdn() {
+		return idn;
 	}
-	public void setLaura_memnum(String laura_memnum) {
-		this.laura_memnum = laura_memnum;
+	public void setIdn(String idn) {
+		this.idn = idn;
 	}
 	public String getReip() {
 		return reip;
@@ -64,8 +55,7 @@ public class Mem_logVO {
 		this.status = status;
 	}
 	
+		
 	
 	
-	
-
 }

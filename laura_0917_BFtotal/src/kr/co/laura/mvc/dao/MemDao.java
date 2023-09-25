@@ -7,8 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.laura.mvc.vo.MemLoginLog;
 import kr.co.laura.mvc.vo.MemVO;
-import kr.co.laura.mvc.vo.Mem_logVO;
 
 @Repository
 public class MemDao implements MemDaoInter {
@@ -95,11 +95,17 @@ public class MemDao implements MemDaoInter {
 		return ss.selectList("mem.list", map);
 	}
 
+	//로그인 기록처리 
 	@Override
-	public void addLoginLogging(Mem_logVO lvo) {
+	public void addLoginLogging(MemLoginLog lvo) {
 		ss.insert("mem.logger_in", lvo);
 	}
-
+	
+	
+	
+	
+	
+	//예술인 인증 폼 작성시 프로필 업데이트
 	@Override
 	public void upartist(MemVO vo) {
 		ss.update("mem.upartist", vo);

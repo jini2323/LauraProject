@@ -99,8 +99,6 @@
 	</select>
 	<!-- 페이징처리 -->
 
-
-
 	<select id="totalCount" resultType="int">
 		select count(*) AS cnt from
 		MEM
@@ -108,12 +106,13 @@
 
 	<!-- login logging mapper -->
 	<insert id="logger_in" parameterType="logvo">
-		INSERT INTO MEM_LOG
-		VALUES(MEM_LOG_SEQ.NEXTVAL, #{laura_num}, #{reip},
-		#{uagent},
-		#{status}, SYSDATE)
+	INSERT INTO MEMLOGINLOG (lognum, idn, reip, uagent
+	, status, logtime ) VALUES(
+	MEMLOGINLOG_SEQ.NEXTVAL, 
+	#{idn} , #{reip}, 
+	#{uagent}, #{status}, SYSDATE )	
 	</insert>
-
+	
 	<!-- 0819_박형지 : 예술인 인증 폼 작성시 프로필 업데이트 -->
 	<update id="upartist" parameterType="memvo">
 		<!-- ARSTATUS,ADDR,BANKACCOUNT,ARPROFILEPIC,ARPROFILE,ARDATE -->

@@ -3,8 +3,8 @@ package kr.co.laura.mvc.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.laura.mvc.vo.MemLoginLog;
 import kr.co.laura.mvc.vo.MemVO;
-import kr.co.laura.mvc.vo.Mem_logVO;
 
 public interface MemDaoInter {
 
@@ -32,8 +32,8 @@ public interface MemDaoInter {
 
 	public List<MemVO> memList(Map<String, String> map); // 총 회원 목록
 
-	// 로그인 기록 파트 //로그인 로깅
-	public void addLoginLogging(Mem_logVO lvo);
+	// 로그인 기록 파트 
+	public void addLoginLogging(MemLoginLog lvo);
 
 	// ----------------------------------------------------------
 	// 0819_박형지 : 예술인 인증부분 추가

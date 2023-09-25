@@ -9,7 +9,7 @@
 	<typeAliases>
 		<!-- 회원 -->
 		<typeAlias type="kr.co.laura.mvc.vo.MemVO" alias="memvo" />
-		<typeAlias type="kr.co.laura.mvc.vo.Mem_logVO" alias="logvo" />
+		<typeAlias type="kr.co.laura.mvc.vo.MemLoginLog" alias="logvo" />
 		<!-- 펀딩 -->
 		<typeAlias type="kr.co.laura.mvc.vo.FBoardVO" alias="fvo" />
 

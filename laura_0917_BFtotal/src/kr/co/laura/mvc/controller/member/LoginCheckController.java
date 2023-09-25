@@ -62,11 +62,12 @@ public class LoginCheckController {
 	public ModelAndView loginfoutProcess(HttpSession session) {// 리팩토링
 
 		ModelAndView mav = new ModelAndView();
+		
 		session.removeAttribute("sessionName");
 		session.removeAttribute("sessionID");
 		mav.setViewName("redirect:/main");
 		System.out.println("로그아웃 실행! 및 세션삭제=> Proceeding Call");
-
+		
 		return mav;
 
 	}
@@ -76,5 +77,6 @@ public class LoginCheckController {
 	public String find_id() {
 		return "member/find_idpwd";
 	}
+	
 
 }
