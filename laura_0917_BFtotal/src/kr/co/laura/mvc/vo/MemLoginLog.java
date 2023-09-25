@@ -8,10 +8,8 @@ public class MemLoginLog {
 	private int lognum; //기본키
 	private String idn; //외래키 멤버 테이블의 이메일
  	private String reip,uagent;
-	private String sstime, eetime; //로그인 시간대  logtime
+	private String logintime; //로그인 시간대  logtime
 	private String status; //로그인 상태
-	
-	
 	public int getLognum() {
 		return lognum;
 	}
@@ -36,17 +34,11 @@ public class MemLoginLog {
 	public void setUagent(String uagent) {
 		this.uagent = uagent;
 	}
-	public String getSstime() {
-		return sstime;
+	public String getLogintime() {
+		return logintime;
 	}
-	public void setSstime(String sstime) {
-		this.sstime = sstime;
-	}
-	public String getEetime() {
-		return eetime;
-	}
-	public void setEetime(String eetime) {
-		this.eetime = eetime;
+	public void setLogintime(String logintime) {
+		this.logintime = logintime;
 	}
 	public String getStatus() {
 		return status;
@@ -55,7 +47,7 @@ public class MemLoginLog {
 		this.status = status;
 	}
 	
-		
+	
 	
 	
 }

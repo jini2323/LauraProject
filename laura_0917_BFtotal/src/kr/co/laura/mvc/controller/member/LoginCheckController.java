@@ -59,7 +59,7 @@ public class LoginCheckController {
 	}
 
 	@GetMapping("/logout")
-	public ModelAndView loginfoutProcess(HttpSession session) {// ∏Æ∆—≈‰∏µ
+	public ModelAndView loginfoutProcess(HttpSession session, HttpServletRequest request) {// ∏Æ∆—≈‰∏µ
 
 		ModelAndView mav = new ModelAndView();
 		
